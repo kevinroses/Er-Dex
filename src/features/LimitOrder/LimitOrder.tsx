@@ -12,6 +12,7 @@ import { SwapKlinePanel } from '../Swap/components/SwapKlinePanel'
 import { SwapKlinePanelMobileDrawer } from '../Swap/components/SwapKlinePanelMobileDrawer'
 import { SwapKlinePanelMobileThumbnail } from '../Swap/components/SwapKlinePanelMobileThumbnail'
 import { LimitOrderPanel } from './components/LimitOrderPanel'
+import  LimitOrderTable  from './components/LimiOrderTable'
 import { TimeType } from '@/hooks/pool/useFetchPoolKLine'
 import { getMintPriority } from '@/utils/token'
 import useResponsive from '@/hooks/useResponsive'
@@ -154,7 +155,10 @@ export default function LimitOrder() {
             </PanelCard>
           )}
         </GridItem>
+
       </Grid>
+      <LimitOrderTable/>
+
     </VStack>
   )
 }
