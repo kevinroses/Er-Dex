@@ -2,19 +2,10 @@ import React from 'react';
 import {
   Box,
   Button,
-  Collapse,
   Flex,
   HStack,
-  SimpleGrid,
   Text,
-  useDisclosure,
-  CircularProgress,
-  GridItem,
-  Grid,
-  NumberInput as ChakraNumberInput,
-  NumberInputField, Link,
   VStack,
-  InputLeftElement,
   Input,
   InputGroup,
   InputRightElement,
@@ -24,86 +15,15 @@ import {
   Tbody,
   Tr,
   Th,
-  Td
+  Td,
+  Tabs,
+  TabList,
+  TabPanels,
+  TabPanel,
+  Tab
 } from '@chakra-ui/react'
-import { ComponentExampleGroup } from '../../../features/ComponentSpecification/components/ComponentExamplePanel'
 import SearchIcon from '@/icons/misc/SearchIcon'
-
-
-
-// Order Table Component
-const OrderTable = () => (
-    <>
-        <VStack spacing={4} w="full">
-            <Flex w="full" py={4} justify="space-between" align="center">
-                <HStack spacing={6}>
-                    <Button
-                        px={4}
-                        py={2}
-                        bg="#131517"
-                        rounded="lg"
-                        color="white"
-                        fontSize="sm"
-                        fontWeight="medium"
-                        border="1px"
-                        borderColor="white"
-                    >
-                        OPEN ORDERS
-                    </Button>
-                    <Button
-                        px={4}
-                        py={2}
-                        color="gray.400"
-                        fontSize="sm"
-                        fontWeight="medium"
-                        _hover={{ color: "white" }}
-                        variant="ghost"
-                    >
-                        ORDER HISTORY
-                    </Button>
-                </HStack>
-
-                <Flex gap={4}>
-                    <Button
-                        px={4}
-                        py={2}
-                        bg="#131517"
-                        rounded="lg"
-                        color="white"
-                        fontSize="sm"
-                        fontWeight="medium"
-                        border="1px"
-                        borderColor="white"
-                        display="flex"
-                        alignItems="center"
-                        gap={2}
-                    >
-
-                        REFETCH DATA
-                    </Button>
-                    <Button
-                        px={4}
-                        py={2}
-                        bg="#131517"
-                        rounded="lg"
-                        color="gray.400"
-                        fontSize="sm"
-                        fontWeight="medium"
-                        border="1px"
-                        borderColor="white"
-                        display="flex"
-                        alignItems="center"
-                        gap={2}
-                        _hover={{ color: "white" }}
-                    >
-
-                        CANCEL ALL
-                    </Button>
-                </Flex>
-            </Flex>
-        </VStack>
-    </>
-);
+import SolanaNetworkIcon from "@/icons/networks/SolanaNetworkIcon";
 
 const SearchBar = () => {
   return (
@@ -164,101 +84,310 @@ const SearchBar = () => {
   );
 };
 
-const OrderListTable = () => {
+const OpenOrdersTable = () => {
   return (
     <Box
-      border="1px"
-      borderColor="purple.700"
-      borderRadius="lg"
-      bg="blackAlpha.900"
+    sx={{
+      border: '1px solid var(--Neutrals-Neutral-500)',
+      bg: 'transparent',
+      borderRadius: '10px',
+      padding: '10px'
+    }}
+
       w="100%"
-      p="32px"
+      p="4"
     >
-      <Table variant="simple">
+      <Table variant="unstyled" sx={{ borderSpacing: '0 8px', borderCollapse: 'separate' }}>
         {/* Table Header */}
-        <Thead bg="primary.100" borderRadius="lg" >
-          <Tr>
-            <Th color="white" fontSize="sm">
-              <Flex align="center">
-                Order Info
-              </Flex>
-            </Th>
-            <Th color="white" fontSize="sm">
-              <Flex align="center">
-                Price
-              </Flex>
-            </Th>
-            <Th color="white" fontSize="sm">
-              Expiry
-            </Th>
-            <Th color="white" fontSize="sm">
-              <Flex align="center">
-                Filled Size
-              </Flex>
-            </Th>
-            <Th color="white" fontSize="sm">
-              Action
-            </Th>
+        <Thead       bg="var(--Neutrals-Neutral-700)"
+        color="var(--Neutrals-Neutral-300)"
+ borderRadius="lg">
+          <Tr
+          textTransform="capitalize"
+          >
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Order Info</Th>
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Price</Th>
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Expiry</Th>
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Filled Size</Th>
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Action</Th>
           </Tr>
         </Thead>
 
         {/* Table Body */}
         <Tbody>
-          <Tr bg="purple.900" _hover={{ bg: "purple.800" }}>
-            {/* Order Info */}
-            <Td color="white" fontSize="sm">
-              <Flex align="center">
-                <Icon viewBox="0 0 24 24" boxSize="5" mr={2}>
-                  {/* Sample SVG */}
-                  <circle cx="12" cy="12" r="10" fill="#6264F3" />
-                </Icon>
-                <Text>23 ETH → 40 SOL</Text>
-              </Flex>
-            </Td>
+          {[...Array(2)].map((_, index) => (
+            <Tr
+             bg="var(--Neutrals-Neutral-800)"
+              key={index}
+              sx={{
+                border: "1px solid #3C3C6C",
+                borderRadius: "10px",
+                padding: "10px",
+                marginBottom: "10px",
+                
+                '& > td': {
+                  padding: '16px',
+                }
+              }}
+            >
+              {/* Order Info */}
+              <Td              color="var(--Neutrals-Neutral-200)"
+fontWeight="bold"
+fontSize="sm">
+                <Flex align="center">
+                  <Icon viewBox="0 0 24 24" boxSize="5" mr={2}>
+                    {/* ETH Icon */}
+                    <SolanaNetworkIcon height={'24px'} width={'24px'} />
+                  </Icon>
+                  <Text>23 ETH → 40 SOL</Text>
+                </Flex>
+              </Td>
 
-            {/* Price */}
-            <Td color="white" fontSize="sm">
-              170.9 SOL per $ETH
-            </Td>
+              {/* Price */}
+              <Td              color="var(--Neutrals-Neutral-200)"
+fontWeight="bold"
+fontSize="sm">170.9 SOL per $ETH</Td>
 
-            {/* Expiry */}
-            <Td color="white" fontSize="sm">
-              Never
-            </Td>
+              {/* Expiry */}
+              <Td              color="var(--Neutrals-Neutral-200)"
+fontWeight="bold"
+fontSize="sm">Never</Td>
 
-            {/* Filled Size */}
-            <Td color="white" fontSize="sm">
-              0 / 0.1 SOL (0.00%)
-            </Td>
+              {/* Filled Size */}
+              <Td              color="var(--Neutrals-Neutral-200)"
+fontWeight="bold"
+fontSize="sm">
+  
+ <Text as="span"
+ color="white"
+ > 0 / 0.1 SOL</Text> (0.00%)
+  
+  </Td>
 
-            {/* Action */}
-            <Td>
-              <Button
-                size="sm"
-                colorScheme="gray"
-                variant="outline"
-                color="white"
-                _hover={{ bg: "whiteAlpha.200" }}
-              >
-                Close
-              </Button>
-            </Td>
+              {/* Action */}
+              <Td>
+                <Button
+                  size="sm"
+                  sx={{
+                    border: "1px solid white",
+                    borderRadius: "4px",
+                    padding: "10px",
+                    marginBottom: "10px",
+                  
+                  }}
+                  color="white"
+                  bg="transparent"
+                  _hover={{ bg: "var(--Neutrals-Neutral-600)" }}
+                >
+                  Close
+                </Button>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </Box>
+  );
+};
+const OrderHistoryTable = () => {
+  return (
+    <Box
+    sx={{
+      border: '1px solid var(--Neutrals-Neutral-500)',
+      bg: 'transparent',
+      borderRadius: '10px',
+      padding: '10px'
+    }}
+
+      w="100%"
+      p="4"
+    >
+      <Table variant="unstyled" sx={{ borderSpacing: '0 8px', borderCollapse: 'separate' }}>
+        {/* Table Header */}
+        <Thead       bg="var(--Neutrals-Neutral-700)"
+        color="var(--Neutrals-Neutral-300)"
+ borderRadius="lg">
+          <Tr
+          textTransform="capitalize"
+          >
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Order Info</Th>
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Limit Price</Th>
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Expiry</Th>
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Filled Size</Th>
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Action</Th>
           </Tr>
+        </Thead>
+
+        {/* Table Body */}
+        <Tbody>
+          {[...Array(2)].map((_, index) => (
+            <Tr
+             bg="var(--Neutrals-Neutral-800)"
+              key={index}
+              sx={{
+                border: "1px solid #3C3C6C",
+                borderRadius: "10px",
+                padding: "10px",
+                marginBottom: "10px",
+                
+                '& > td': {
+                  padding: '16px',
+                }
+              }}
+            >
+              {/* Order Info */}
+              <Td              color="var(--Neutrals-Neutral-200)"
+fontWeight="bold"
+fontSize="sm">
+                <Flex align="center">
+                  <Icon viewBox="0 0 24 24" boxSize="5" mr={2}>
+                    {/* ETH Icon */}
+                    <SolanaNetworkIcon height={'24px'} width={'24px'} />
+                  </Icon>
+                  <Text>23 ETH → 40 SOL</Text>
+                </Flex>
+              </Td>
+
+              {/* Price */}
+              <Td              color="var(--Neutrals-Neutral-200)"
+fontWeight="bold"
+fontSize="sm">170.9 SOL per $ETH</Td>
+
+              {/* Expiry */}
+              <Td              color="var(--Neutrals-Neutral-200)"
+fontWeight="bold"
+fontSize="sm">Never</Td>
+
+              {/* Filled Size */}
+              <Td              color="var(--Neutrals-Neutral-200)"
+fontWeight="bold"
+fontSize="sm">
+  
+ <Text as="span"
+ color="white"
+ > 0 / 0.1 SOL</Text> (0.00%)
+  
+  </Td>
+
+              {/* Action */}
+              <Td>
+                <Button
+                  size="sm"
+                  sx={{
+                    border: "1px solid white",
+                    borderRadius: "4px",
+                    padding: "10px",
+                    marginBottom: "10px",
+                  
+                  }}
+                  color="white"
+                  bg="transparent"
+                  _hover={{ bg: "var(--Neutrals-Neutral-600)" }}
+                >
+                  Close
+                </Button>
+              </Td>
+            </Tr>
+          ))}
         </Tbody>
       </Table>
     </Box>
   );
 };
 
-
-
 const LimitOrderTable = () => {
     return (
-        <>
-            <OrderTable />
-            <SearchBar/>
-            <OrderListTable/>
-        </>
+        <VStack spacing={4} w="full">
+            <Tabs variant="unstyled" w="full">
+                <Flex w="full" py={4} justify="space-between" align="center">
+                    <TabList>
+                        <Tab
+                            px={4}
+                            py={2}
+                            bg="#131517"
+                            rounded="lg"
+                            color="gray.400"
+                            fontSize="sm"
+                            fontWeight="medium"
+                            _active={{ 
+                                color: 'white', 
+                                borderWidth: "1px",
+                                borderColor: "white",
+                                borderStyle: "solid",
+                                bg: "transparent"
+                            }}
+                            
+                        >
+                            OPEN ORDERS
+                        </Tab>
+                        <Tab
+                            px={4}
+                            py={2}
+                            color="gray.400"
+                            fontSize="sm"
+                            fontWeight="medium"
+                            _active={{ 
+                                color: 'white', 
+                                borderWidth: "1px",
+                                borderColor: "white",
+                                borderStyle: "solid",
+                                bg: "transparent"
+                            }}
+                        
+                        >
+                            ORDER HISTORY
+                        </Tab>
+                    </TabList>
+
+                    <Flex gap={4}>
+                        <Button
+                            px={4}
+                            py={2}
+                            bg="#131517"
+                            rounded="lg"
+                            color="white"
+                            fontSize="sm"
+                            fontWeight="medium"
+                            border="1px"
+                            borderColor="white"
+                            display="flex"
+                            alignItems="center"
+                            gap={2}
+                        >
+                            REFETCH DATA
+                        </Button>
+                        <Button
+                            px={4}
+                            py={2}
+                            bg="#131517"
+                            rounded="lg"
+                            color="gray.400"
+                            fontSize="sm"
+                            fontWeight="medium"
+                            border="1px"
+                            borderColor="white"
+                            display="flex"
+                            alignItems="center"
+                            gap={2}
+                            _hover={{ color: "white" }}
+                        >
+                            CANCEL ALL
+                        </Button>
+                    </Flex>
+                </Flex>
+
+                <TabPanels>
+                    <TabPanel p={0}>
+                        <SearchBar />
+                        <OpenOrdersTable />
+                    </TabPanel>
+                    <TabPanel p={0}>
+                        <SearchBar />
+                        <OrderHistoryTable />
+                    </TabPanel>
+                </TabPanels>
+            </Tabs>
+        </VStack>
     );
 };
 
