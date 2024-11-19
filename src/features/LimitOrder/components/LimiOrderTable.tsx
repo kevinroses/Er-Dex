@@ -2,19 +2,10 @@ import React from 'react';
 import {
   Box,
   Button,
-  Collapse,
   Flex,
   HStack,
-  SimpleGrid,
   Text,
-  useDisclosure,
-  CircularProgress,
-  GridItem,
-  Grid,
-  NumberInput as ChakraNumberInput,
-  NumberInputField, Link,
   VStack,
-  InputLeftElement,
   Input,
   InputGroup,
   InputRightElement,
@@ -26,8 +17,8 @@ import {
   Th,
   Td
 } from '@chakra-ui/react'
-import { ComponentExampleGroup } from '../../../features/ComponentSpecification/components/ComponentExamplePanel'
 import SearchIcon from '@/icons/misc/SearchIcon'
+import SolanaNetworkIcon from "@/icons/networks/SolanaNetworkIcon";
 
 
 
@@ -164,92 +155,112 @@ const SearchBar = () => {
   );
 };
 
+
 const OrderListTable = () => {
   return (
     <Box
-      border="1px"
-      borderColor="purple.700"
-      borderRadius="lg"
-      bg="blackAlpha.900"
+    sx={{
+      border: '1px solid var(--Neutrals-Neutral-500)',
+      bg: 'transparent',
+      borderRadius: '10px',
+      padding: '10px'
+    }}
+
       w="100%"
-      p="32px"
+      p="4"
     >
-      <Table variant="simple">
+      <Table variant="unstyled" sx={{ borderSpacing: '0 8px', borderCollapse: 'separate' }}>
         {/* Table Header */}
-        <Thead bg="primary.100" borderRadius="lg" >
-          <Tr>
-            <Th color="white" fontSize="sm">
-              <Flex align="center">
-                Order Info
-              </Flex>
-            </Th>
-            <Th color="white" fontSize="sm">
-              <Flex align="center">
-                Price
-              </Flex>
-            </Th>
-            <Th color="white" fontSize="sm">
-              Expiry
-            </Th>
-            <Th color="white" fontSize="sm">
-              <Flex align="center">
-                Filled Size
-              </Flex>
-            </Th>
-            <Th color="white" fontSize="sm">
-              Action
-            </Th>
+        <Thead       bg="var(--Neutrals-Neutral-700)"
+        color="var(--Neutrals-Neutral-300)"
+ borderRadius="lg">
+          <Tr
+          textTransform="capitalize"
+          >
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Order Info</Th>
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Price</Th>
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Expiry</Th>
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Filled Size</Th>
+            <Th  bg="var(--Neutrals-Neutral-700)"  textTransform="capitalize" fontSize="sm">Action</Th>
           </Tr>
         </Thead>
 
         {/* Table Body */}
         <Tbody>
-          <Tr bg="purple.900" _hover={{ bg: "purple.800" }}>
-            {/* Order Info */}
-            <Td color="white" fontSize="sm">
-              <Flex align="center">
-                <Icon viewBox="0 0 24 24" boxSize="5" mr={2}>
-                  {/* Sample SVG */}
-                  <circle cx="12" cy="12" r="10" fill="#6264F3" />
-                </Icon>
-                <Text>23 ETH → 40 SOL</Text>
-              </Flex>
-            </Td>
+          {[...Array(2)].map((_, index) => (
+            <Tr
+             bg="var(--Neutrals-Neutral-800)"
+              key={index}
+              sx={{
+                border: "1px solid #3C3C6C",
+                borderRadius: "10px",
+                padding: "10px",
+                marginBottom: "10px",
+                
+                '& > td': {
+                  padding: '16px',
+                }
+              }}
+            >
+              {/* Order Info */}
+              <Td              color="var(--Neutrals-Neutral-200)"
+fontWeight="bold"
+fontSize="sm">
+                <Flex align="center">
+                  <Icon viewBox="0 0 24 24" boxSize="5" mr={2}>
+                    {/* ETH Icon */}
+                    <SolanaNetworkIcon height={'24px'} width={'24px'} />
+                  </Icon>
+                  <Text>23 ETH → 40 SOL</Text>
+                </Flex>
+              </Td>
 
-            {/* Price */}
-            <Td color="white" fontSize="sm">
-              170.9 SOL per $ETH
-            </Td>
+              {/* Price */}
+              <Td              color="var(--Neutrals-Neutral-200)"
+fontWeight="bold"
+fontSize="sm">170.9 SOL per $ETH</Td>
 
-            {/* Expiry */}
-            <Td color="white" fontSize="sm">
-              Never
-            </Td>
+              {/* Expiry */}
+              <Td              color="var(--Neutrals-Neutral-200)"
+fontWeight="bold"
+fontSize="sm">Never</Td>
 
-            {/* Filled Size */}
-            <Td color="white" fontSize="sm">
-              0 / 0.1 SOL (0.00%)
-            </Td>
+              {/* Filled Size */}
+              <Td              color="var(--Neutrals-Neutral-200)"
+fontWeight="bold"
+fontSize="sm">
+  
+ <Text as="span"
+ color="white"
+ > 0 / 0.1 SOL</Text> (0.00%)
+  
+  </Td>
 
-            {/* Action */}
-            <Td>
-              <Button
-                size="sm"
-                colorScheme="gray"
-                variant="outline"
-                color="white"
-                _hover={{ bg: "whiteAlpha.200" }}
-              >
-                Close
-              </Button>
-            </Td>
-          </Tr>
+              {/* Action */}
+              <Td>
+                <Button
+                  size="sm"
+                  sx={{
+                    border: "1px solid white",
+                    borderRadius: "4px",
+                    padding: "10px",
+                    marginBottom: "10px",
+                  
+                  }}
+                  color="white"
+                  bg="transparent"
+                  _hover={{ bg: "var(--Neutrals-Neutral-600)" }}
+                >
+                  Close
+                </Button>
+              </Td>
+            </Tr>
+          ))}
         </Tbody>
       </Table>
     </Box>
   );
 };
-
 
 
 const LimitOrderTable = () => {
