@@ -19,6 +19,12 @@ import {
   InputGroup,
   InputRightElement,
   Icon,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td
 } from '@chakra-ui/react'
 import { ComponentExampleGroup } from '../../../features/ComponentSpecification/components/ComponentExamplePanel'
 import SearchIcon from '@/icons/misc/SearchIcon'
@@ -158,12 +164,100 @@ const SearchBar = () => {
   );
 };
 
+const OrderListTable = () => {
+  return (
+    <Box
+      border="1px"
+      borderColor="purple.700"
+      borderRadius="lg"
+      bg="blackAlpha.900"
+      w="100%"
+      p="32px"
+    >
+      <Table variant="simple">
+        {/* Table Header */}
+        <Thead bg="primary.100" borderRadius="lg" >
+          <Tr>
+            <Th color="white" fontSize="sm">
+              <Flex align="center">
+                Order Info
+              </Flex>
+            </Th>
+            <Th color="white" fontSize="sm">
+              <Flex align="center">
+                Price
+              </Flex>
+            </Th>
+            <Th color="white" fontSize="sm">
+              Expiry
+            </Th>
+            <Th color="white" fontSize="sm">
+              <Flex align="center">
+                Filled Size
+              </Flex>
+            </Th>
+            <Th color="white" fontSize="sm">
+              Action
+            </Th>
+          </Tr>
+        </Thead>
+
+        {/* Table Body */}
+        <Tbody>
+          <Tr bg="purple.900" _hover={{ bg: "purple.800" }}>
+            {/* Order Info */}
+            <Td color="white" fontSize="sm">
+              <Flex align="center">
+                <Icon viewBox="0 0 24 24" boxSize="5" mr={2}>
+                  {/* Sample SVG */}
+                  <circle cx="12" cy="12" r="10" fill="#6264F3" />
+                </Icon>
+                <Text>23 ETH → 40 SOL</Text>
+              </Flex>
+            </Td>
+
+            {/* Price */}
+            <Td color="white" fontSize="sm">
+              170.9 SOL per $ETH
+            </Td>
+
+            {/* Expiry */}
+            <Td color="white" fontSize="sm">
+              Never
+            </Td>
+
+            {/* Filled Size */}
+            <Td color="white" fontSize="sm">
+              0 / 0.1 SOL (0.00%)
+            </Td>
+
+            {/* Action */}
+            <Td>
+              <Button
+                size="sm"
+                colorScheme="gray"
+                variant="outline"
+                color="white"
+                _hover={{ bg: "whiteAlpha.200" }}
+              >
+                Close
+              </Button>
+            </Td>
+          </Tr>
+        </Tbody>
+      </Table>
+    </Box>
+  );
+};
+
+
 
 const LimitOrderTable = () => {
     return (
         <>
             <OrderTable />
             <SearchBar/>
+            <OrderListTable/>
         </>
     );
 };
