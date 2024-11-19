@@ -69,7 +69,8 @@ export function Select<T>({
   hasDivider = false,
   hasBorder = false,
   icons,
-  placement = 'bottom-start'
+  placement = 'bottom-start',
+  title
 }: {
   variant?: 'filled' | 'filledFlowDark' | 'filledDark' | 'roundedFilledFlowDark' | 'roundedFilledDark'
   facePrefix?: MayFn<ReactNode, [{ open: boolean; itemValue?: T }]>
@@ -93,6 +94,7 @@ export function Select<T>({
     close?: ReactNode
   }
   placement?: PlacementWithLogical
+  title?: string
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const triggerRef = useRef<HTMLDivElement>(null)
@@ -127,32 +129,47 @@ export function Select<T>({
   const activeItemIndex = getItemIndex(triggerValue)
   const triggerItem = renderTriggerItem ? renderTriggerItem(triggerValue) : getItemLabel(triggerValue, activeItemIndex)
   const Trigger = () => (
-    <HStack
-      ref={triggerRef}
-      sx={shrinkToValue(sx, [{ isPanelOpen: isOpen }]) ?? shrinkToValue(triggerSX, [{ isPanelOpen: isOpen }])}
-      width={'max-content'}
-      fontWeight={500}
-      cursor={disabled ? 'not-allowed' : 'pointer'}
-      opacity={disabled ? '0.5' : '1'}
-      bg={(isOpen ? isWhenOpenFaceLight : isFaceLight) ? colors.backgroundTransparent12 : colors.backgroundDark}
-      _hover={{
-        bg: isWhenOpenFaceLight ? colors.backgroundTransparent12 : colors.backgroundDark
-      }}
-      transition={'200ms'}
-      borderRadius={isFaceRounded ? 'full' : '8px'}
-      py={1}
-      px={4}
-      fontSize={['md']}
-      color={isFaceLight ? colors.textSecondary : colors.textPrimary}
-    >
-      {facePrefix && <Box>{shrinkToValue(facePrefix, [{ open, itemValue: value }])}</Box>}
-      <Box flexGrow="1">{triggerItem}</Box>
-      {isOpen ? getIcon('open', icons) : getIcon('close', icons)}
-    </HStack>
+    <Box>
+      <HStack
+        ref={triggerRef}
+        sx={shrinkToValue(sx, [{ isPanelOpen: isOpen }]) ?? shrinkToValue(triggerSX, [{ isPanelOpen: isOpen }])}
+        width={'max-content'}
+        fontWeight={500}
+        cursor={disabled ? 'not-allowed' : 'pointer'}
+        opacity={disabled ? '0.5' : '1'}
+        bg={(isOpen ? isWhenOpenFaceLight : isFaceLight) ? colors.backgroundTransparent12 : colors.backgroundDark}
+        _hover={{
+          bg: isWhenOpenFaceLight ? colors.backgroundTransparent12 : colors.backgroundDark
+        }}
+        transition={'200ms'}
+        borderRadius={isFaceRounded ? 'full' : '8px'}
+        py={1}
+        px={4}
+        fontSize={['md']}
+        color={isFaceLight ? colors.textSecondary : colors.textPrimary}
+      >
+        {facePrefix && <Box>{shrinkToValue(facePrefix, [{ open, itemValue: value }])}</Box>}
+        <Box flexGrow="1">
+          {title && (
+            <Box 
+              color={colors.textSecondary} 
+              display="block"
+              fontSize="sm" 
+              mb={1}
+            >
+              {title}
+            </Box>
+          )}
+          {triggerItem}
+        </Box>
+        {isOpen ? getIcon('open', icons) : getIcon('close', icons)}
+      </HStack>
+    </Box>
   )
 
   /** {@link Select} can close by click outside selector */
-  useOutsideClick({
+  useOutsideClick
+  ({
     ref: [triggerRef, panelRef],
     handler() {
       onClose()

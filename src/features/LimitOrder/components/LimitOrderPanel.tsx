@@ -46,6 +46,7 @@ import { debounce } from '@/utils/functionMethods'
 import Tabs from '@/components/Tabs'
 import toPercentString from '@/utils/numberish/toPercentString'
 import { ChevronDown } from 'react-feather'
+import { Select } from '@/components/Select'
 
 export function LimitOrderPanel({
                                   onInputMintChange,
@@ -310,6 +311,45 @@ export function LimitOrderPanel({
           }}
         />
 
+        <Flex gap={2} alignItems="center" >
+          <TokenInput
+disableSelectToken={true}
+          name="rate"
+          value="50"
+          sx={{
+            border: '1px solid var(--Neutrals-Neutral-500)',
+            bg: 'var(--Neutrals-Neutral-800)',
+            borderRadius: '10px',
+            padding: '10px'
+          }}
+        />
+
+        <Select
+        title="Expiry"
+          value="50"
+          sx={{
+            border: '1px solid var(--Neutrals-Neutral-500)',
+            bg: 'var(--Neutrals-Neutral-800)',
+            borderRadius: '10px',
+            padding: '10px',
+            height: '85px',
+            width: "120px",
+            marginTop:'20px'
+          }}
+          placeholder="Select"
+          items={[
+            {
+              label: '50%',
+              value: '50'
+            },
+            {
+              label: '100%',
+              value: '100'
+            }
+          ]}
+          />
+        </Flex>
+
         <SwapIcon onClick={handleChangeSide} />
 
         {/* output */}
@@ -361,52 +401,7 @@ export function LimitOrderPanel({
         </HStack>
       </Box>
 
-      <Box display={'flex'}>
-        <Box
-          border="1px solid var(--Neutrals-Neutral-500)"
-          borderRadius="8px"
-          px="5px"
-          bg="var(--background-transparent12)"
-          display="flex"
-          alignItems="center"
-          width="100%" // Make the box take up the remaining space
-          justifyContent="space-between"
-        >
-          <Box display="flex" flexDirection="column">
-            <Text fontSize="sm" marginBottom={'-10px'} paddingTop={'3px'} px={'3px'}>
-              Custom
-            </Text>
-
-            {/* Number Input Field */}
-            <ChakraNumberInput maxW="50px" defaultValue={0.0} precision={2} step={0.1}>
-              <NumberInputField
-                border="none"
-                marginBottom={'-7px'}
-                width="60px"
-                bg="transparent"
-                _hover={{
-                  bg: 'transparent' // Ensure background remains transparent on hover
-                }}
-                _focusVisible={{
-                  outline: 'none',
-                  boxShadow: 'none',
-                  bg: 'transparent'
-                }}
-                color="var(--Neutrals-Neutral-500)"
-                fontSize="sm"
-                fontWeight="bold"
-                textAlign="start"
-                paddingRight="5px"
-                marginLeft="-12px"
-              />
-            </ChakraNumberInput>
-          </Box>
-
-          <Text ml={2} fontSize="lg" fontWeight="bold" color="var(--Primary-Blue)" me={'3px'}>
-            %
-          </Text>
-        </Box>
-      </Box>
+     
 
       {isSolFeeNotEnough ? (
         <Flex
