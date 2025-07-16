@@ -168,13 +168,13 @@ export function Select<T>({
   )
 
   /** {@link Select} can close by click outside selector */
-  useOutsideClick
-  ({
-    ref: [triggerRef, panelRef],
-    handler() {
-      onClose()
-    }
-  })
+ useOutsideClick({
+  ref: [triggerRef, panelRef],
+  handler() {
+    onClose()
+  }
+})
+
 
   if (disabled) return Trigger()
 
